@@ -1,4 +1,11 @@
 // ==========================
+// Saludo dinámico según la hora
+// ==========================
+const hora = new Date().getHours();
+let saludo = hora < 12 ? "☀️ Buenos días" : hora < 19 ? "🌤️ Buenas tardes" : "🌙 Buenas noches";
+console.log(`${saludo}, bienvenido al localizador geográfico.`);
+
+// ==========================
 // Inicializar el mapa
 // ==========================
 let map = L.map('map').setView([19.4326, -99.1332], 5);
@@ -92,6 +99,18 @@ document.getElementById('search-btn').addEventListener('click', async () => {
  }
 
  // ==========================
+ // Icono dinámico según condición
+ // ==========================
+ const iconos = {
+ "Despejado": "☀️",
+ "Nublado": "☁️",
+ "Lluvia Ligera": "🌦️",
+ "Tormenta Eléctrica": "⛈️",
+ "Tormenta Meteorológica": "🌪️"
+ };
+ const icono = iconos[condition] || "🌡️";
+
+ // ==========================
  // Mostrar resultados
  // ==========================
  weatherCard.innerHTML = `
@@ -113,7 +132,7 @@ document.getElementById('search-btn').addEventListener('click', async () => {
  <h4>Parámetros climatológicos</h4>
  <p><strong>🌡 Temperatura:</strong> ${temp} °C</p>
  <p><strong>💧 Humedad:</strong> ${humidity}%</p>
- <p><strong>☁ Condición:</strong> ${condition}</p>
+ <p><strong>${icono} Condición:</strong> ${condition}</p>
  </div>
  <div class="success-footer">
  ✓ Datos sincronizados correctamente.
@@ -127,4 +146,4 @@ document.getElementById('search-btn').addEventListener('click', async () => {
  </p>
  `;
  }
-});
+})
